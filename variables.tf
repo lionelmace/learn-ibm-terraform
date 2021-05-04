@@ -5,7 +5,7 @@ variable "ibmcloud_api_key" {
 variable "region" {
   type        = string
   default     = "eu-de"
-  description = "Region where to deploy the example"
+  description = "Region where to deploy the resources"
 }
 
 variable "vpc_name" {

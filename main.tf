@@ -1,17 +1,3 @@
-terraform {
-  required_providers {
-    ibm = {
-      source  = "ibm-cloud/ibm"
-      version = ">= 1.23.2"
-    }
-  }
-  required_version = ">= 0.14"
-}
-
-provider "ibm" {
-  ibmcloud_api_key = var.ibmcloud_api_key
-  region           = var.region
-}
 
 # where to create resource, defaults to the default resource group
 data "ibm_resource_group" "resource_group" {
