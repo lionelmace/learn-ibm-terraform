@@ -8,15 +8,15 @@ variable "region" {
   description = "Region where to deploy the resources"
 }
 
-variable "vpc_name" {
+variable "name" {
   type        = string
-  default     = "tf-vpc-and-bastion"
+  default     = "tf-bastion"
   description = "Prefix to use to create the example resources"
 }
 
 variable "ssh_key_name" {
   type        = string
-  default     = "my-id-rsa"
+  default     = "my-rsa-key"
   description = "Name of an existing VPC SSH key to inject into the bastion and instance to allow remote connection"
 }
 
@@ -27,7 +27,7 @@ variable "create_public_ip" {
 
 variable "resource_group" {
   type        = string
-  default     = null
+  default     = "terraform"
   description = "Resource group where to create resources"
 }
 
