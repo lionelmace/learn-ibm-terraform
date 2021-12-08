@@ -6,16 +6,24 @@
     export TF_VAR_ibmcloud_api_key="Your IBM Cloud API Key"
     ```
 
+1. Edit the file `testing.tfvars`.
+
 1. Terraform must initialize the provider before it can be used.
 
     ```sh
     terraform init
     ```
 
+1. Review the plan
+
+    ```sh
+    terraform plan -var-file="testing.tfvars"
+    ```
+
 1. Start provisioning
 
     ```sh
-    terraform apply
+    terraform apply -var-file="testing.tfvars"
     ```
 
 1. Once provisioned, reads and outputs a Terraform state or plan file in a human-readable form.

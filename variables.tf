@@ -10,7 +10,7 @@ variable "region" {
 
 variable "name" {
   type        = string
-  default     = "tf-bastion"
+  default     = "tf-vsi"
   description = "Prefix to use to create the example resources"
 }
 
@@ -18,6 +18,10 @@ variable "ssh_key_name" {
   type        = string
   default     = "my-rsa-key"
   description = "Name of an existing VPC SSH key to inject into the bastion and instance to allow remote connection"
+}
+
+variable "ssh_public_key" {
+  type        = string
 }
 
 variable "create_public_ip" {
