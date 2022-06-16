@@ -43,7 +43,7 @@ resource "ibm_is_ssh_key" "sshkey" {
 }
 
 resource "ibm_is_instance" "instance" {
-  name           = "${var.name}-instance"
+  name           = "${var.name}"
   vpc            = ibm_is_vpc.vpc.id
   zone           = ibm_is_subnet.subnet.zone
   profile        = var.profile_name
