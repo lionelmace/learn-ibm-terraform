@@ -1,13 +1,13 @@
 
 # where to create resource
-resource "ibm_resource_group" "resource_group" {
+data "ibm_resource_group" "resource_group" {
   name = var.resource_group
 }
 
 # a vpc
 resource "ibm_is_vpc" "vpc" {
   name                      = var.name
-  resource_group            = ibm_resource_group.resource_group.id
+  resource_group            = data.ibm_resource_group.resource_group.id
   address_prefix_management = "manual"
 }
 
@@ -24,7 +24,7 @@ resource "ibm_is_subnet" "subnet" {
   name            = "${var.name}-subnet"
   vpc             = ibm_is_vpc.vpc.id
   zone            = "${var.region}-1"
-  resource_group  = ibm_resource_group.resource_group.id
+  resource_group  = data.ibm_resource_group.resource_group.id
   ipv4_cidr_block = ibm_is_vpc_address_prefix.subnet_prefix.cidr
 }
 
@@ -43,14 +43,14 @@ resource "ibm_is_ssh_key" "sshkey" {
 }
 
 resource "ibm_is_instance" "instance" {
-  name           = "${var.name}"
+  name           = var.vsi_name
   vpc            = ibm_is_vpc.vpc.id
   zone           = ibm_is_subnet.subnet.zone
   profile        = var.profile_name
   image          = data.ibm_is_image.image.id
   # keys           = [data.ibm_is_ssh_key.sshkey.id]
   keys           = [ibm_is_ssh_key.sshkey.id]
-  resource_group = ibm_resource_group.resource_group.id
+  resource_group = data.ibm_resource_group.resource_group.id
 
   primary_network_interface {
     subnet = ibm_is_subnet.subnet.id

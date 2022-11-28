@@ -14,6 +14,12 @@ variable "name" {
   description = "Prefix to use to create the example resources"
 }
 
+variable "vsi_name" {
+  type        = string
+  default     = "vsi-lionel"
+  description = "Prefix to use to create the example resources"
+}
+
 variable "ssh_key_name" {
   type        = string
   default     = "my-rsa-key"
