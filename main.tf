@@ -6,14 +6,15 @@ data "ibm_resource_group" "resource_group" {
 
 # a vpc
 resource "ibm_is_vpc" "vpc" {
-  name                      = var.name
+  name                      = format("%s-%s", var.prefix, "vpc")
   resource_group            = data.ibm_resource_group.resource_group.id
   address_prefix_management = "manual"
+  tags                      = var.tags
 }
 
 # its address prefix
 resource "ibm_is_vpc_address_prefix" "subnet_prefix" {
-  name = "${var.name}-zone-1"
+  name = format("%s-%s", var.prefix, "zone-1")
   zone = "${var.region}-1"
   vpc  = ibm_is_vpc.vpc.id
   cidr = "10.10.10.0/24"
@@ -21,11 +22,12 @@ resource "ibm_is_vpc_address_prefix" "subnet_prefix" {
 
 # a subnet
 resource "ibm_is_subnet" "subnet" {
-  name            = "${var.name}-subnet"
+  name            = format("%s-%s", var.prefix, "subnet")
   vpc             = ibm_is_vpc.vpc.id
   zone            = "${var.region}-1"
   resource_group  = data.ibm_resource_group.resource_group.id
   ipv4_cidr_block = ibm_is_vpc_address_prefix.subnet_prefix.cidr
+  tags            = var.tags
 }
 
 # Create a VSI
@@ -43,7 +45,7 @@ resource "ibm_is_ssh_key" "sshkey" {
 }
 
 resource "ibm_is_instance" "instance" {
-  name           = var.vsi_name
+  name           = format("%s-%s", var.prefix, "vsi")
   vpc            = ibm_is_vpc.vpc.id
   zone           = ibm_is_subnet.subnet.zone
   profile        = var.profile_name
@@ -51,12 +53,13 @@ resource "ibm_is_instance" "instance" {
   # keys           = [data.ibm_is_ssh_key.sshkey.id]
   keys           = [ibm_is_ssh_key.sshkey.id]
   resource_group = data.ibm_resource_group.resource_group.id
+  tags           = var.tags
 
   primary_network_interface {
     subnet = ibm_is_subnet.subnet.id
   }
 
   boot_volume {
-    name = "${var.name}-instance-boot"
+    name = format("%s-%s", var.prefix, "boot")
   }
 }

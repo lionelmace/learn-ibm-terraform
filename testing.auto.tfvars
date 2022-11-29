@@ -1,6 +1,6 @@
 resource_group = "lab"
 
-vsi_name="vsi-lionel"
+prefix="lionel"
 
 # Drop your public key here
-ssh_public_key = "Your SSH Public Key"
+ssh_public_key = "your ssh key here"

@@ -8,15 +8,15 @@ variable "region" {
   description = "Region where to deploy the resources"
 }
 
-variable "name" {
-  type        = string
-  default     = "tf-vsi"
-  description = "Prefix to use to create the example resources"
+variable "tags" {
+  description = "List of Tags"
+  type        = list(string)
+  default     = ["tf", "training"]
 }
 
-variable "vsi_name" {
+variable "prefix" {
   type        = string
-  default     = "vsi-lionel"
+  default     = "myprefi"
   description = "Prefix to use to create the example resources"
 }
 
