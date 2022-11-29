@@ -40,8 +40,9 @@ data "ibm_is_image" "image" {
 #   name = var.ssh_key_name
 # }
 resource "ibm_is_ssh_key" "sshkey" {
-  name       = "my-ssh-key"
-  public_key = var.ssh_public_key
+  name           = format("%s-%s", var.prefix, "ssh-key")
+  resource_group = data.ibm_resource_group.resource_group.id
+  public_key     = var.ssh_public_key
 }
 
 resource "ibm_is_instance" "instance" {

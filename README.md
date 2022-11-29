@@ -1,5 +1,7 @@
 # Learn terraform on IBM Cloud
 
+This lab will provision a VPC, a subnet, and a VSI in a Resource Group within IBM Cloud.
+
 ## Pre-requisites
 
 * Install [terraform](https://developer.hashicorp.com/terraform/downloads)
