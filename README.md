@@ -1,5 +1,13 @@
 # Learn terraform on IBM Cloud
 
+## Pre-requisites
+
+* Install [terraform](https://developer.hashicorp.com/terraform/downloads)
+* Install [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+* Install [IBM Cloud CLI](https://github.com/IBM-Cloud/ibm-cloud-cli-release/releases)
+
+## Lab
+
 1. Clone this repository
 
     ```sh
