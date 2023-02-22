@@ -16,7 +16,7 @@ variable "tags" {
 
 variable "prefix" {
   type        = string
-  default     = "myprefi"
+  default     = "myprefix"
   description = "Prefix to use to create the example resources"
 }
 
