@@ -27,7 +27,15 @@ variable "ssh_key_name" {
 }
 
 variable "ssh_public_key" {
+  description = "SSH Public Key. Get your ssh key by running `ssh-key-gen` command"
   type        = string
+  default     = null
+}
+
+variable "ssh_key_id" {
+  description = "ID of SSH public key stored in IBM Cloud"
+  type        = string
+  default     = null
 }
 
 variable "create_public_ip" {

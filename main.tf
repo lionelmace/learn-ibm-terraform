@@ -39,10 +39,23 @@ data "ibm_is_image" "image" {
 # data "ibm_is_ssh_key" "sshkey" {
 #   name = var.ssh_key_name
 # }
+# resource "ibm_is_ssh_key" "sshkey" {
+#   name           = format("%s-%s", var.prefix, "ssh-key")
+#   resource_group = data.ibm_resource_group.resource_group.id
+#   public_key     = var.ssh_public_key
+# }
+
+resource "tls_private_key" "example" {
+  count     = var.ssh_key_id == null ? 1 : 0
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
 resource "ibm_is_ssh_key" "sshkey" {
+  count          = var.ssh_key_id == null ? 1 : 0
   name           = format("%s-%s", var.prefix, "ssh-key")
   resource_group = data.ibm_resource_group.resource_group.id
-  public_key     = var.ssh_public_key
+  public_key     = var.public_key != null ? var.public_key : tls_private_key.example[0].public_key_openssh
 }
 
 resource "ibm_is_instance" "instance" {
