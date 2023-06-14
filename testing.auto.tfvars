@@ -1,6 +1,5 @@
-resource_group = "lab"
 
-prefix="lionel"
+# prefix="tf"
 
 # Drop your public key here
-ssh_public_key = ""
+# ssh_public_key = ""
