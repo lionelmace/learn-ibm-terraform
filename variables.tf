@@ -31,12 +31,6 @@ locals {
   basename = lower(var.prefix == "" ? "tf-${random_string.random.0.result}" : var.prefix)
 }
 
-# variable "ssh_key_name" {
-#   type        = string
-#   default     = "my-rsa-key"
-#   description = "Name of an existing VPC SSH key to inject into the bastion and instance to allow remote connection"
-# }
-
 variable "ssh_public_key" {
   description = "SSH Public Key. Get your ssh key by running `ssh-key-gen` command"
   type        = string
@@ -53,12 +47,6 @@ variable "create_public_ip" {
   type    = bool
   default = true
 }
-
-# variable "resource_group" {
-#   type        = string
-#   default     = "terraform"
-#   description = "Resource group where to create resources"
-# }
 
 variable "image_name" {
   type        = string
