@@ -79,6 +79,6 @@ resource "ibm_is_instance" "instance" {
   }
 
   boot_volume {
-    name = format("%s-%s", var.prefix, "boot")
+    name = "${local.basename}-boot"
   }
 }
