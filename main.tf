@@ -39,27 +39,27 @@ data "ibm_is_image" "image" {
 # data "ibm_is_ssh_key" "sshkey" {
 #   name = var.ssh_key_name
 # }
-resource "ibm_is_ssh_key" "sshkey" {
-  name           = format("%s-%s", var.prefix, "ssh-key")
-  resource_group = data.ibm_resource_group.resource_group.id
-  public_key     = var.ssh_public_key
-}
+# resource "ibm_is_ssh_key" "sshkey" {
+#   name           = format("%s-%s", var.prefix, "ssh-key")
+#   resource_group = data.ibm_resource_group.resource_group.id
+#   public_key     = var.ssh_public_key
+# }
 
 # Trying to use code below to avoid passing the key as argument
 # Error: [DEBUG] Create SSH Key ssh: short read
 # BEGIN
-# resource "tls_private_key" "example" {
-#   count     = var.ssh_key_id == null ? 1 : 0
-#   algorithm = "RSA"
-#   rsa_bits  = 4096
-# }
-#
-# resource "ibm_is_ssh_key" "sshkey" {
-#   count          = var.ssh_key_id == null ? 1 : 0
-#   name           = format("%s-%s", var.prefix, "ssh-key")
-#   resource_group = data.ibm_resource_group.resource_group.id
-#   public_key     = var.ssh_public_key != null ? var.ssh_public_key : tls_private_key.example[0].public_key_openssh
-# }
+resource "tls_private_key" "example" {
+  count     = var.ssh_key_id == null ? 1 : 0
+  algorithm = "RSA"
+  rsa_bits  = 4096
+}
+
+resource "ibm_is_ssh_key" "sshkey" {
+  count          = var.ssh_key_id == null ? 1 : 0
+  name           = format("%s-%s", var.prefix, "ssh-key")
+  resource_group = data.ibm_resource_group.resource_group.id
+  public_key     = var.ssh_public_key != null ? var.ssh_public_key : tls_private_key.example[0].public_key_openssh
+}
 # END
 
 resource "ibm_is_instance" "instance" {
