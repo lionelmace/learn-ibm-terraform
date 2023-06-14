@@ -1,6 +1,6 @@
 
 # where to create resource
-resource "ibm_resource_group" "group" {
+resource "ibm_resource_group" "rg" {
   name = "${local.basename}-group"
   tags = var.tags
 }
@@ -8,7 +8,7 @@ resource "ibm_resource_group" "group" {
 # a vpc
 resource "ibm_is_vpc" "vpc" {
   name                      = "${local.basename}-vpc"
-  resource_group            = ibm_resource_group.resource_group.id
+  resource_group            = ibm_resource_group.rg.id
   address_prefix_management = "manual"
   tags                      = var.tags
 }
@@ -26,7 +26,7 @@ resource "ibm_is_subnet" "subnet" {
   name            = "${local.basename}-subnet"
   vpc             = ibm_is_vpc.vpc.id
   zone            = "${var.region}-1"
-  resource_group  = ibm_resource_group.resource_group.id
+  resource_group  = ibm_resource_group.rg.id
   ipv4_cidr_block = ibm_is_vpc_address_prefix.subnet_prefix.cidr
   tags            = var.tags
 }
@@ -42,7 +42,7 @@ data "ibm_is_image" "image" {
 # }
 # resource "ibm_is_ssh_key" "sshkey" {
 #   name           = format("%s-%s", var.prefix, "ssh-key")
-#   resource_group = ibm_resource_group.resource_group.id
+#   resource_group = ibm_resource_group.rg.id
 #   public_key     = var.ssh_public_key
 # }
 
@@ -58,7 +58,7 @@ resource "tls_private_key" "example" {
 resource "ibm_is_ssh_key" "sshkey" {
   count          = var.ssh_key_id == null ? 1 : 0
   name           = "${local.basename}-ssh-key"
-  resource_group = ibm_resource_group.resource_group.id
+  resource_group = ibm_resource_group.rg.id
   public_key     = var.ssh_public_key != null ? var.ssh_public_key : tls_private_key.example[0].public_key_openssh
 }
 # END
@@ -71,7 +71,7 @@ resource "ibm_is_instance" "instance" {
   image          = data.ibm_is_image.image.id
   # keys           = [data.ibm_is_ssh_key.sshkey.id]
   keys           = [ibm_is_ssh_key.sshkey[0].id]
-  resource_group = ibm_resource_group.resource_group.id
+  resource_group = ibm_resource_group.rg.id
   tags           = var.tags
 
   primary_network_interface {
