@@ -54,11 +54,11 @@ variable "create_public_ip" {
   default = true
 }
 
-variable "resource_group" {
-  type        = string
-  default     = "terraform"
-  description = "Resource group where to create resources"
-}
+# variable "resource_group" {
+#   type        = string
+#   default     = "terraform"
+#   description = "Resource group where to create resources"
+# }
 
 variable "image_name" {
   type        = string
