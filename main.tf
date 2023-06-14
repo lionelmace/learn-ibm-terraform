@@ -70,7 +70,7 @@ resource "ibm_is_instance" "instance" {
   profile        = var.profile_name
   image          = data.ibm_is_image.image.id
   # keys           = [data.ibm_is_ssh_key.sshkey.id]
-  keys           = ibm_is_ssh_key.generated_key.id
+  keys           = ibm_is_ssh_key.generated_key.ssh_key_name
   resource_group = ibm_resource_group.rg.id
   tags           = var.tags
 
