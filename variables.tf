@@ -16,21 +16,32 @@ variable "tags" {
 
 variable "prefix" {
   type        = string
-  default     = "myprefix"
-  description = "Prefix to use to create the example resources"
+  default     = ""
+  description = "A prefix for all resources to be created. If none provided a random prefix will be created"
 }
 
-variable "ssh_key_name" {
-  type        = string
-  default     = "my-rsa-key"
-  description = "Name of an existing VPC SSH key to inject into the bastion and instance to allow remote connection"
+resource "random_string" "random" {
+  count = var.prefix == "" ? 1 : 0
+
+  length  = 6
+  special = false
 }
 
-variable "ssh_public_key" {
-  description = "SSH Public Key. Get your ssh key by running `ssh-key-gen` command"
-  type        = string
-  default     = null
+locals {
+  basename = lower(var.prefix == "" ? "tf-${random_string.random.0.result}" : var.prefix)
 }
+
+# variable "ssh_key_name" {
+#   type        = string
+#   default     = "my-rsa-key"
+#   description = "Name of an existing VPC SSH key to inject into the bastion and instance to allow remote connection"
+# }
+
+# variable "ssh_public_key" {
+#   description = "SSH Public Key. Get your ssh key by running `ssh-key-gen` command"
+#   type        = string
+#   default     = null
+# }
 
 variable "ssh_key_id" {
   description = "ID of SSH public key stored in IBM Cloud"
