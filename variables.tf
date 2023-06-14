@@ -37,11 +37,11 @@ locals {
 #   description = "Name of an existing VPC SSH key to inject into the bastion and instance to allow remote connection"
 # }
 
-# variable "ssh_public_key" {
-#   description = "SSH Public Key. Get your ssh key by running `ssh-key-gen` command"
-#   type        = string
-#   default     = null
-# }
+variable "ssh_public_key" {
+  description = "SSH Public Key. Get your ssh key by running `ssh-key-gen` command"
+  type        = string
+  default     = null
+}
 
 variable "ssh_key_id" {
   description = "ID of SSH public key stored in IBM Cloud"
