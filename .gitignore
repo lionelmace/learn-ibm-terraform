@@ -1,4 +1,2 @@
 .terraform*
 terraform.tfstate*
-
-testing.auto.tfvars
