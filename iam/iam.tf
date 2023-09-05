@@ -5,7 +5,7 @@ data "ibm_resource_group" "resource_group" {
 
 # Name of the Access Group
 resource "ibm_iam_access_group" "accgrp" {
-  name = "VPC VSI Provisioning"
+  name = "tf-vpc-vsi-provisioning"
 }
 
 # Visibility on the Resource Group

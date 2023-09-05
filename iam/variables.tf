@@ -10,6 +10,6 @@ variable "region" {
 
 variable "resource_group" {
   type        = string
-  default     = "lab"
+  default     = "test"
   description = "Resource group where to create resources"
 }
