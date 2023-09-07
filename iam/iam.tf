@@ -39,11 +39,11 @@ locals {
   }
   # Types of resources required to be able to create a VSI
   is_instance_service_types = {
-    "imageId"         = "*"
-    "instanceId"      = "*"
-    "floatingIpId"    = "*"
-    "keyId"           = "*"
-    "volumeId"        = "*"
+    "imageId"      = "*"
+    "instanceId"   = "*"
+    "floatingIpId" = "*"
+    "keyId"        = "*"
+    "volumeId"     = "*"
     # "instanceGroupId" = "*" # not used, included for completeness
     # "dedicatedHostId" = "*" # not used, included for completeness
   }
@@ -65,6 +65,11 @@ resource "ibm_iam_access_group_policy" "policy_vpv" {
     }
     resource_group_id = data.ibm_resource_group.resource_group.id
   }
+  # resource_attributes {
+  #   name     = "region"
+  #   operator = "stringEquals"
+  #   value    = var.region
+  # }
 }
 
 # Editor role is required to create a VSI or Block Storage.
@@ -82,4 +87,9 @@ resource "ibm_iam_access_group_policy" "policy_vsi" {
     }
     resource_group_id = data.ibm_resource_group.resource_group.id
   }
+  # resource_attributes {
+  #   name     = "region"
+  #   operator = "stringEquals"
+  #   value    = var.region
+  # }
 }

@@ -1,16 +1,20 @@
 # Learn terraform on IBM Cloud
 
-This lab will provision a VPC, a subnet, a SSH Key and a VSI in a new Resource Group within IBM Cloud.
+> Estimated duration: 15 mins
+
+This lab will provision a VPC, a Subnet, a SSH Key and a VSI (Virtual Server Instance) with a Floating IP in a new Resource Group within IBM Cloud.
+
+You can then ssh into the newly created VSI.
 
 ## Before you begin
 
-This lab requires:
+This lab requires the following command lines:
 
-    * [IBM Cloud CLI](https://github.com/IBM-Cloud/ibm-cloud-cli-release/releases)
-    * [Terraform CLI](https://developer.hashicorp.com/terraform/downloads) to run the Terraform commands.
-    * [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git) to clone source code repository.
+* [IBM Cloud CLI](https://github.com/IBM-Cloud/ibm-cloud-cli-release/releases)
+* [Terraform CLI](https://developer.hashicorp.com/terraform/downloads)
+* [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
 
-Unless you are Administrator of the Account, you need permissions to be able to provision VPC Resources. Ask the Administrator run the Terraform in `iam` folder.
+> Unless you are Administrator of the Cloud Account, you need permissions to be able to provision VPC Resources. Ask the Administrator run the Terraform in `iam` folder.
 
 ## Lab
 
@@ -46,20 +50,38 @@ Unless you are Administrator of the Account, you need permissions to be able to 
     terraform plan
     ```
 
-1. Start provisioning
+1. Start provisioning.
+
+   > Estimated duration: 2 mins
 
     ```sh
     terraform apply
     ```
 
+    Outputs look like this:
+
+    ```sh
+    ssh_connection_string = "ssh -i ./rsakey.pem root@VSI-FLOATING-IP"
+    vsi_private_ip = "10.10.10.4"
+    vsi_public_ip = "158.177.3.170"
+    ```
+
+2. Connect to the VSI
+
+    ```sh
+    ssh -i ./rsakey.pem root@PUBLIC_IP
+    ```
+
+3. Clean up the resources to avoid cost
+
+    ```sh
+    terraform destroy
+    ```
+
+## Additional commnands
+
 1. Once provisioned, reads and outputs a Terraform state or plan file in a human-readable form.
 
     ```sh
     terraform show
-    ```
-
-1. Clean up
-
-    ```sh
-    terraform destroy
     ```
