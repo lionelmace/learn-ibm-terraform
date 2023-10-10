@@ -28,7 +28,7 @@ resource "random_string" "random" {
 }
 
 locals {
-  basename = lower(var.prefix == "" ? "tf-${random_string.random.0.result}" : var.prefix)
+  basename = lower(var.prefix == "" ? "learn-${random_string.random.0.result}" : var.prefix)
 }
 
 variable "ssh_public_key" {
