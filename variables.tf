@@ -57,5 +57,5 @@ variable "image_name" {
 variable "profile_name" {
   type        = string
   description = "Instance profile to use for the private instance"
-  default     = "cx2-2x4"
+  default     = "bx2-2x8"
 }
