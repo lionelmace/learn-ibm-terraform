@@ -77,7 +77,7 @@ resource "ibm_is_instance" "vsi" {
 resource "ibm_is_floating_ip" "public_ip" {
   count = tobool(var.create_public_ip) ? 1 : 0
 
-  name   = "example-floating-ip"
+  name   = "${local.basename}-floating-ip"
   target = ibm_is_instance.vsi.primary_network_interface[0].id
 }
 
