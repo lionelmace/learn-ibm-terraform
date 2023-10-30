@@ -1,7 +1,3 @@
-## File is not used.
-## Testing with Resource Attributes instead of Resource to use the region.
-## Not support yet.
-
 # where to create resource
 data "ibm_resource_group" "resource_group" {
   name = var.resource_group
