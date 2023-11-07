@@ -31,6 +31,15 @@ resource "ibm_is_subnet" "subnet" {
   tags            = var.tags
 }
 
+resource "ibm_is_public_gateway" "pgw" {
+  name           = "${local.basename}-pgw"
+  vpc            = ibm_is_vpc.vpc.id
+  zone           = "${var.region}-1"
+  resource_group = ibm_resource_group.rg.id
+  tags           = var.tags
+}
+
+
 data "ibm_is_image" "image" {
   name = var.image_name
 }
@@ -79,6 +88,7 @@ resource "ibm_is_floating_ip" "public_ip" {
 
   name   = "${local.basename}-floating-ip"
   target = ibm_is_instance.vsi.primary_network_interface[0].id
+  tags   = var.tags
 }
 
 # Enable SSH Inbound Rule
