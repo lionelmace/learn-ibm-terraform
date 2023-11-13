@@ -30,33 +30,3 @@ resource "random_string" "random" {
 locals {
   basename = lower(var.prefix == "" ? "learn-${random_string.random.0.result}" : var.prefix)
 }
-
-variable "ssh_public_key" {
-  description = "SSH Public Key. Get your ssh key by running `ssh-key-gen` command"
-  type        = string
-  default     = null
-}
-
-variable "ssh_key_id" {
-  description = "ID of SSH public key stored in IBM Cloud"
-  type        = string
-  default     = null
-}
-
-variable "create_public_ip" {
-  type    = bool
-  default = true
-}
-
-variable "image_name" {
-  type        = string
-  default     = "ibm-ubuntu-18-04-1-minimal-amd64-2"
-  description = "Name of the image to use for the private instance"
-}
-
-variable "profile_name" {
-  type        = string
-  description = "Instance profile to use for the private instance"
-  default     = "cx2-2x4"
-  # default     = "bx2-2x8"
-}

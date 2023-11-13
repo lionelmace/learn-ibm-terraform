@@ -1,44 +1,33 @@
 
-# where to create resource
-resource "ibm_resource_group" "rg" {
-  name = "${local.basename}-group"
-  tags = var.tags
+variable "ssh_public_key" {
+  description = "SSH Public Key. Get your ssh key by running `ssh-key-gen` command"
+  type        = string
+  default     = null
 }
 
-# a vpc
-resource "ibm_is_vpc" "vpc" {
-  name                      = "${local.basename}-vpc"
-  resource_group            = ibm_resource_group.rg.id
-  address_prefix_management = "manual"
-  tags                      = var.tags
+variable "ssh_key_id" {
+  description = "ID of SSH public key stored in IBM Cloud"
+  type        = string
+  default     = null
 }
 
-# its address prefix
-resource "ibm_is_vpc_address_prefix" "subnet_prefix" {
-  name = "${local.basename}-zone-1"
-  zone = "${var.region}-1"
-  vpc  = ibm_is_vpc.vpc.id
-  cidr = "10.10.10.0/24"
+variable "create_public_ip" {
+  type    = bool
+  default = true
 }
 
-# a subnet
-resource "ibm_is_subnet" "subnet" {
-  name            = "${local.basename}-subnet"
-  vpc             = ibm_is_vpc.vpc.id
-  zone            = "${var.region}-1"
-  resource_group  = ibm_resource_group.rg.id
-  ipv4_cidr_block = ibm_is_vpc_address_prefix.subnet_prefix.cidr
-  tags            = var.tags
+variable "image_name" {
+  type        = string
+  default     = "ibm-ubuntu-18-04-1-minimal-amd64-2"
+  description = "Name of the image to use for the private instance"
 }
 
-resource "ibm_is_public_gateway" "pgw" {
-  name           = "${local.basename}-pgw"
-  vpc            = ibm_is_vpc.vpc.id
-  zone           = "${var.region}-1"
-  resource_group = ibm_resource_group.rg.id
-  tags           = var.tags
+variable "profile_name" {
+  type        = string
+  description = "Instance profile to use for the private instance"
+  default     = "cx2-2x4"
+  # default     = "bx2-2x8"
 }
-
 
 data "ibm_is_image" "image" {
   name = var.image_name
@@ -89,16 +78,4 @@ resource "ibm_is_floating_ip" "public_ip" {
   name   = "${local.basename}-floating-ip"
   target = ibm_is_instance.vsi.primary_network_interface[0].id
   tags   = var.tags
-}
-
-# Enable SSH Inbound Rule
-resource "ibm_is_security_group_rule" "sg-rule-inbound-ssh" {
-  group     = ibm_is_vpc.vpc.default_security_group
-  direction = "inbound"
-  remote    = "0.0.0.0/0"
-
-  tcp {
-    port_min = 22
-    port_max = 22
-  }
 }
