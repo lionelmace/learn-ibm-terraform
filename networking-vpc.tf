@@ -1,4 +1,4 @@
-# Use this VPC Data Source if your VPC already exits
+# Use this VPC Data Source if your VPC already exists
 # Comment everything as of Line 7
 # Make sure to passe your VPC's name
 # data "ibm_is_vpc" "vpc" {

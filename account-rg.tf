@@ -4,7 +4,7 @@ resource "ibm_resource_group" "rg" {
   tags = var.tags
 }
 
-# Use this data source if your RG already exits
+# Use this data source if your RG already exists
 # Make sure to passe your RG's name
 # data "ibm_resource_group" "rg" {
 #   name = "demo"
