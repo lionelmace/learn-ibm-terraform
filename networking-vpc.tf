@@ -1,10 +1,4 @@
 
-# where to create resource
-resource "ibm_resource_group" "rg" {
-  name = "${local.basename}-group"
-  tags = var.tags
-}
-
 # a vpc
 resource "ibm_is_vpc" "vpc" {
   name                      = "${local.basename}-vpc"
