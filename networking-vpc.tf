@@ -1,3 +1,9 @@
+# Use this VPC Data Source if your VPC already exits
+# Comment everything as of Line 7
+# Make sure to passe your VPC's name
+# data "ibm_is_vpc" "vpc" {
+#   name = "vpc-eu-de-iks"
+# }
 
 # a vpc
 resource "ibm_is_vpc" "vpc" {

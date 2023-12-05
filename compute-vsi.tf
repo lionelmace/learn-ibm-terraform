@@ -48,6 +48,8 @@ resource "local_file" "private_key" {
 resource "ibm_is_ssh_key" "generated_ssh_key" {
   name           = "${local.basename}-ssh-key"
   resource_group = ibm_resource_group.rg.id
+  # Replace by the line below if the Resource Group already exists
+  # resource_group = data.ibm_resource_group.rg.id
   public_key     = tls_private_key.rsa_4096_key.public_key_openssh
 }
 
@@ -55,15 +57,23 @@ resource "ibm_is_ssh_key" "generated_ssh_key" {
 resource "ibm_is_instance" "vsi" {
   name           = "${local.basename}-vsi"
   vpc            = ibm_is_vpc.vpc.id
+  # Replace by the line below if the VPC already exists
+  # vpc            = data.ibm_is_vpc.vpc.id
   zone           = ibm_is_subnet.subnet.zone
+  # Replace by the line below if the Subnet already exists
+  # zone           = data.ibm_is_vpc.vpc.subnets.0.zone
   profile        = var.profile_name
   image          = data.ibm_is_image.image.id
   keys           = [ibm_is_ssh_key.generated_ssh_key.id]
   resource_group = ibm_resource_group.rg.id
+  # Replace by the line below if the Resource Group already exists
+  # resource_group = data.ibm_resource_group.rg.id
   tags           = var.tags
 
   primary_network_interface {
     subnet = ibm_is_subnet.subnet.id
+    # Replace by the line below if the Subnet already exists
+    # subnet = data.ibm_is_vpc.vpc.subnets.0.id
   }
 
   boot_volume {
