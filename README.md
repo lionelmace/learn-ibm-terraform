@@ -38,6 +38,8 @@ This lab requires the following command lines:
     export TF_VAR_ibmcloud_api_key="Your IBM Cloud API Key"
     ```
 
+    > Required only if terraform is launched outside of Schematics.
+
 1. Terraform must initialize the provider before it can be used.
 
     ```sh

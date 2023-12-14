@@ -1,3 +1,4 @@
+# Required if terraform is launched outside of Schematics
 # variable "ibmcloud_api_key" {
 #   type = string
 # }

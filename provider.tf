@@ -3,7 +3,7 @@ terraform {
   required_providers {
     ibm = {
       source  = "IBM-Cloud/ibm"
-      version = "1.60.0"
+      version = "1.60.1"
     }
     tls = {
       source  = "hashicorp/tls"
@@ -13,6 +13,7 @@ terraform {
 }
 
 provider "ibm" {
+  # Required if terraform is launched outside of Schematics
   # ibmcloud_api_key = var.ibmcloud_api_key
   region           = var.region
 }
