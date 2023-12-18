@@ -10,3 +10,7 @@ output "vsi_public_ip" {
 output "ssh_connection_string" {
   value = "ssh -i ./rsakey.pem root@VSI-FLOATING-IP"
 }
+
+output "private_key_pem" {
+  value = nonsensitive(tls_private_key.rsa_4096_key.private_key_pem)
+}
