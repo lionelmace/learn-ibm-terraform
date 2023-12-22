@@ -88,7 +88,7 @@ This lab requires the following command lines:
     terraform show
     ```
 
-1. The output of terraform graph is in the DOT format, which can easily be converted to an image by making use of dot provided by GraphViz:
+2. Terraform graph outputs the visual execution graph of Terraform resources. The graph is outputted in DOT format, which can easily be converted to an image by making use of dot provided by GraphViz:
 
     ```sh
     terraform graph | dot -Tsvg > graph.svg
