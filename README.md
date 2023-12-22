@@ -87,3 +87,11 @@ This lab requires the following command lines:
     ```sh
     terraform show
     ```
+
+1. The output of terraform graph is in the DOT format, which can easily be converted to an image by making use of dot provided by GraphViz:
+
+    ```sh
+    terraform graph | dot -Tsvg > graph.svg
+    ```
+
+    ![](./images/graph.svg)
