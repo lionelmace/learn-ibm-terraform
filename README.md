@@ -15,8 +15,8 @@ You can then ssh into the newly created VSI.
 
 | Terraform | Estimation Duration |
 | --------- | --------- |
-| Apply     | ~7 mins |
-| Destroy   | ~5 mins |
+| Apply     | ~2 mins |
+| Destroy   | ~3 mins |
 
 ## Before you begin
 
@@ -47,10 +47,12 @@ This lab requires the following command lines:
 1. Export API credential tokens as environment variables
 
     ```sh
-    export TF_VAR_ibmcloud_api_key="Your IBM Cloud API Key"
+    export IBMCLOUD_API_KEY="Your IBM Cloud API Key"
     ```
 
-    > Required only if terraform is launched outside of Schematics.
+    > If the variable "ibmcloud_api_key" is set in your provider,
+    > you can initialize it using the following command
+    > export TF_VAR_ibmcloud_api_key="Your IBM Cloud API Key"
 
 1. Terraform must initialize the provider before it can be used.
 
@@ -80,13 +82,13 @@ This lab requires the following command lines:
     vsi_public_ip = "158.177.3.170"
     ```
 
-2. Connect to the VSI
+1. Connect to the VSI
 
     ```sh
     ssh -i ./rsakey.pem root@PUBLIC_IP
     ```
 
-3. Clean up the resources to avoid cost
+1. Clean up the resources to avoid cost
 
     ```sh
     terraform destroy
@@ -106,4 +108,4 @@ This lab requires the following command lines:
     terraform graph | dot -Tsvg > graph.svg
     ```
 
-    ![](./images/graph.svg)
+    ![Graph](./images/graph.svg)
