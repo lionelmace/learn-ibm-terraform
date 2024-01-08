@@ -1,10 +1,22 @@
 # Learn terraform on IBM Cloud
 
-> Estimated duration: 15 mins
+> Estimated duration: 30 mins
 
-This lab will provision a VPC, a Subnet, a SSH Key and a VSI (Virtual Server Instance) with a Floating IP in a new Resource Group within IBM Cloud.
+This lab will teach how to use Terraform in IBM Cloud and provision the following Cloud Services:
+
+* a Resource Group
+* a VPC
+* a Subnet
+* a SSH Key
+* a VSI (Virtual Server Instance)
+* a Floating IP
 
 You can then ssh into the newly created VSI.
+
+| Terraform | Estimation Duration |
+| --------- | --------- |
+| Apply     | ~7 mins |
+| Destroy   | ~5 mins |
 
 ## Before you begin
 
