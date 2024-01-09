@@ -39,9 +39,8 @@ This lab requires the following command lines:
 1. Login to IBM Cloud
 
     ```sh
-    ibmcloud loging
+    ibmcloud login
     ```
-
 
 1. Create an IBM Cloud API either in the [console](https://cloud.ibm.com/iam/apikeys) or using the CLI
 
@@ -101,7 +100,7 @@ This lab requires the following command lines:
     terraform destroy
     ```
 
-## Additional commnands
+## Additional commands
 
 1. Once provisioned, reads and outputs a Terraform state or plan file in a human-readable form.
 
