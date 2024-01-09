@@ -53,7 +53,7 @@ This lab requires the following command lines:
 1. Export API credential tokens as environment variables
 
     ```sh
-    export IBMCLOUD_API_KEY="Your IBM Cloud API Key"
+    export IBMCLOUD_API_KEY="Your IBM Cloud API Key Value"
     ```
 
     > If the variable "ibmcloud_api_key" is set in your provider,
