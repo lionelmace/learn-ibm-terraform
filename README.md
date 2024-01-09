@@ -42,18 +42,10 @@ This lab requires the following command lines:
     ibmcloud login
     ```
 
-1. Create an IBM Cloud API either in the [console](https://cloud.ibm.com/iam/apikeys) or using the CLI
+1. Create and store the value of an API KEY as environment variable
 
     ```sh
-    ibmcloud iam api-key-create my-api-key
-    ```
-
-    > Make sure to preserve the API Key.
-
-1. Export API credential tokens as environment variables
-
-    ```sh
-    export IBMCLOUD_API_KEY="Your IBM Cloud API Key Value"
+    export IBMCLOUD_API_KEY=$(ibmcloud iam api-key-create my-api-key --output json | jq -r .apikey)
     ```
 
     > If the variable "ibmcloud_api_key" is set in your provider,
