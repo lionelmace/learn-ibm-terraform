@@ -36,6 +36,13 @@ This lab requires the following command lines:
     git clone https://github.com/lionelmace/learn-ibm-terraform
     ```
 
+1. Login to IBM Cloud
+
+    ```sh
+    ibmcloud loging
+    ```
+
+
 1. Create an IBM Cloud API either in the [console](https://cloud.ibm.com/iam/apikeys) or using the CLI
 
     ```sh
@@ -102,7 +109,7 @@ This lab requires the following command lines:
     terraform show
     ```
 
-2. Terraform graph outputs the visual execution graph of Terraform resources. The graph is outputted in DOT format, which can easily be converted to an image by making use of dot provided by GraphViz:
+1. Terraform graph outputs the visual execution graph of Terraform resources. The graph is outputted in DOT format, which can easily be converted to an image by making use of dot provided by GraphViz:
 
     ```sh
     terraform graph | dot -Tsvg > graph.svg
