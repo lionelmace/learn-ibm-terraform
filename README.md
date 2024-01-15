@@ -25,6 +25,7 @@ This lab requires the following command lines:
 * [IBM Cloud CLI](https://github.com/IBM-Cloud/ibm-cloud-cli-release/releases)
 * [Terraform CLI](https://developer.hashicorp.com/terraform/downloads)
 * [git](https://git-scm.com/book/en/v2/Getting-Started-Installing-Git)
+* [jq CLI JSON processor](https://jqlang.github.io/jq/download/)
 
 > Unless you are Administrator of the Cloud Account, you need permissions to be able to provision VPC Resources. Ask the Administrator run the Terraform in `iam` folder.
 
