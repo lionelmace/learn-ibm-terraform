@@ -81,6 +81,12 @@ This lab requires the following command lines:
     vsi_public_ip = "158.177.3.170"
     ```
 
+1. Enable debug mode for a single command
+
+    ```sh
+    TF_LOG=DEBUG terraform apply
+    ```
+
 1. Connect to the VSI
 
     ```sh

@@ -48,7 +48,7 @@ resource "local_file" "private_key" {
 # Generate an SSH Key
 resource "ibm_is_ssh_key" "generated_ssh_key" {
   name           = "${local.basename}-ssh-key"
-  resource_group = ibm_resource_group.rg.id
+  resource_group = local.resource_group_id
   # Replace by the line below if the Resource Group already exists
   # resource_group = data.ibm_resource_group.rg.id
   public_key = tls_private_key.rsa_4096_key.public_key_openssh
@@ -66,7 +66,7 @@ resource "ibm_is_instance" "vsi" {
   profile        = var.profile_name
   image          = data.ibm_is_image.image.id
   keys           = [ibm_is_ssh_key.generated_ssh_key.id]
-  resource_group = ibm_resource_group.rg.id
+  resource_group = local.resource_group_id
   # Replace by the line below if the Resource Group already exists
   # resource_group = data.ibm_resource_group.rg.id
   tags = var.tags
@@ -93,7 +93,7 @@ resource "ibm_is_virtual_network_interface" "vni" {
     auto_delete = false
     address     = "10.10.10.8"
   }
-  resource_group = ibm_resource_group.rg.id
+  resource_group = local.resource_group_id
   subnet         = ibm_is_subnet.subnet.id
   # Replace by the line below if the Subnet already exists
   # subnet = data.ibm_is_vpc.vpc.subnets.0.id
@@ -105,6 +105,6 @@ resource "ibm_is_floating_ip" "public_ip" {
 
   name           = "${local.basename}-floating-ip"
   target         = ibm_is_instance.vsi.primary_network_attachment[0].virtual_network_interface[0].id
-  resource_group = ibm_resource_group.rg.id
+  resource_group = local.resource_group_id
   tags           = var.tags
 }

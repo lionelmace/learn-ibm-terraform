@@ -8,7 +8,7 @@
 # a vpc
 resource "ibm_is_vpc" "vpc" {
   name                      = "${local.basename}-vpc"
-  resource_group            = ibm_resource_group.rg.id
+  resource_group            = local.resource_group_id
   address_prefix_management = "manual"
   tags                      = var.tags
 }
@@ -26,7 +26,7 @@ resource "ibm_is_subnet" "subnet" {
   name            = "${local.basename}-subnet"
   vpc             = ibm_is_vpc.vpc.id
   zone            = "${var.region}-1"
-  resource_group  = ibm_resource_group.rg.id
+  resource_group  = local.resource_group_id
   ipv4_cidr_block = ibm_is_vpc_address_prefix.subnet_prefix.cidr
   tags            = var.tags
 }
@@ -35,7 +35,7 @@ resource "ibm_is_public_gateway" "pgw" {
   name           = "${local.basename}-pgw"
   vpc            = ibm_is_vpc.vpc.id
   zone           = "${var.region}-1"
-  resource_group = ibm_resource_group.rg.id
+  resource_group = local.resource_group_id
   tags           = var.tags
 }
 
