@@ -51,16 +51,16 @@ resource "ibm_is_ssh_key" "generated_ssh_key" {
   resource_group = ibm_resource_group.rg.id
   # Replace by the line below if the Resource Group already exists
   # resource_group = data.ibm_resource_group.rg.id
-  public_key     = tls_private_key.rsa_4096_key.public_key_openssh
+  public_key = tls_private_key.rsa_4096_key.public_key_openssh
 }
 
 # Create a VSI (Virtual Server Instance)
 resource "ibm_is_instance" "vsi" {
-  name           = "${local.basename}-vsi"
-  vpc            = ibm_is_vpc.vpc.id
+  name = "${local.basename}-vsi"
+  vpc  = ibm_is_vpc.vpc.id
   # Replace by the line below if the VPC already exists
   # vpc            = data.ibm_is_vpc.vpc.id
-  zone           = ibm_is_subnet.subnet.zone
+  zone = ibm_is_subnet.subnet.zone
   # Replace by the line below if the Subnet already exists
   # zone           = data.ibm_is_vpc.vpc.subnets.0.zone
   profile        = var.profile_name
@@ -69,12 +69,13 @@ resource "ibm_is_instance" "vsi" {
   resource_group = ibm_resource_group.rg.id
   # Replace by the line below if the Resource Group already exists
   # resource_group = data.ibm_resource_group.rg.id
-  tags           = var.tags
+  tags = var.tags
 
-  primary_network_interface {
-    subnet = ibm_is_subnet.subnet.id
-    # Replace by the line below if the Subnet already exists
-    # subnet = data.ibm_is_vpc.vpc.subnets.0.id
+  primary_network_attachment {
+    name = "vni-primary-att"
+    virtual_network_interface {
+      id = ibm_is_virtual_network_interface.vni.id
+    }
   }
 
   boot_volume {
@@ -82,11 +83,28 @@ resource "ibm_is_instance" "vsi" {
   }
 }
 
+resource "ibm_is_virtual_network_interface" "vni" {
+  name                      = "example-vni"
+  allow_ip_spoofing         = false
+  auto_delete               = false
+  # When VNI targeted for VSI, enable_infrastructure_nat cannot be set to false
+  enable_infrastructure_nat = true
+  primary_ip {
+    auto_delete = false
+    address     = "10.10.10.8"
+  }
+  resource_group = ibm_resource_group.rg.id
+  subnet         = ibm_is_subnet.subnet.id
+  # Replace by the line below if the Subnet already exists
+  # subnet = data.ibm_is_vpc.vpc.subnets.0.id
+}
+
 # A Public Floating IP for the VSI
 resource "ibm_is_floating_ip" "public_ip" {
-  count = tobool(var.create_public_ip) ? 1 : 0
+  # count = tobool(var.create_public_ip) ? 1 : 0
 
-  name   = "${local.basename}-floating-ip"
-  target = ibm_is_instance.vsi.primary_network_interface[0].id
-  tags   = var.tags
+  name           = "${local.basename}-floating-ip"
+  target         = ibm_is_instance.vsi.primary_network_attachment[0].virtual_network_interface[0].id
+  resource_group = ibm_resource_group.rg.id
+  tags           = var.tags
 }

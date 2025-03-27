@@ -39,11 +39,12 @@ locals {
   }
   # Types of resources required to be able to create a VSI
   is_instance_service_types = {
-    "imageId"      = "*"
-    "instanceId"   = "*"
-    "floatingIpId" = "*"
-    "keyId"        = "*"
-    "volumeId"     = "*"
+    "imageId"                   = "*"
+    "instanceId"                = "*"
+    "floatingIpId"              = "*"
+    "keyId"                     = "*"
+    "volumeId"                  = "*"
+    "virtualNetworkInterfaceId" = "*"
     # "instanceGroupId" = "*" # not used, included for completeness
     # "dedicatedHostId" = "*" # not used, included for completeness
   }
@@ -59,9 +60,9 @@ resource "ibm_iam_access_group_policy" "policy_vpc" {
 
   for_each = local.is_network_service_types
   resource_attributes {
-    name = each.key
+    name     = each.key
     operator = "stringEquals"
-    value = each.value
+    value    = each.value
   }
   resource_attributes {
     name     = "serviceName"
@@ -88,9 +89,9 @@ resource "ibm_iam_access_group_policy" "policy_vsi" {
 
   for_each = local.is_instance_service_types
   resource_attributes {
-    name = each.key
+    name     = each.key
     operator = "stringEquals"
-    value = each.value
+    value    = each.value
   }
   resource_attributes {
     name     = "serviceName"
