@@ -18,6 +18,18 @@ resource "ibm_iam_access_group_policy" "application1_policy" {
   }
 }
 
+# Service: IAM Identity Service
+# Enables users to create API Key and Service ID
+# Role Administrator is required to create a new Trusted Profile (e.g. Required for Workload Protection)
+resource "ibm_iam_access_group_policy" "iam_create_user_api_key_service_id" {
+  access_group_id = ibm_iam_access_group.accgrp.id
+  roles           = ["User API key creator", "Service ID creator", "Administrator"]
+  resources {
+    service = "iam-identity"
+  }
+}
+
+
 # ------------------------------------------------------------
 # VPC Infrastructure (is) resources (i.e. vpc)
 # List of Resource Attributes:
@@ -32,8 +44,8 @@ locals {
     "subnetId"        = "*"
     "securityGroupId" = "*"
     "networkAclId"    = "*"
+    "publicGatewayId"    = "*"
     # "loadBalancerId"  = "*" # not used, included for completeness
-    # "publicGatewayId"    = "*" # not used, included for completeness
     # "flowLogCollectorId" = "*" # not used, included for completeness
     # "vpnGatewayId"       = "*" # not used, included for completeness
   }
