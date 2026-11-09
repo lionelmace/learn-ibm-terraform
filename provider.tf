@@ -1,9 +1,9 @@
 terraform {
-  required_version = ">=1.9"
+  required_version = ">=1.14"
   required_providers {
     ibm = {
       source  = "IBM-Cloud/ibm"
-      version = "1.77.1"
+      version = "2.9.0"
     }
     tls = {
       source  = "hashicorp/tls"

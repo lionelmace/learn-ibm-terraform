@@ -5,7 +5,7 @@ data "ibm_resource_group" "resource_group" {
 
 # Name of the Access Group
 resource "ibm_iam_access_group" "accgrp" {
-  name = "tf-vpc-vsi-provisioning"
+  name = "ag-hashicorp-terraform-demo"
 }
 
 # Visibility on the Resource Group
